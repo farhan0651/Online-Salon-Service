@@ -796,3 +796,7 @@
 19-Oct-2022 17:34:31 INFO - null
 19-Oct-2022 17:34:37 INFO - null
 19-Oct-2022 17:35:52 INFO - nullAppointment [appointmentId=19, location=Lucknow, visitType=Open, preferredDate=2022-10-28, preferredTime=null, salonService=null, customer=Customer [userId=19, name=Raju, email=null, contactNo=null, dob=null, user1=null, houseno=null], payment=null]
+21-Oct-2022 12:23:08 INFO - Starting OnlineSsApplication using Java 17.0.4.1 on Farhan with PID 3940 (D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main\target\classes started by FK in D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main)
+21-Oct-2022 12:23:08 DEBUG - Running with Spring Boot v2.7.4, Spring v5.3.23
+21-Oct-2022 12:23:08 INFO - No active profile set, falling back to 1 default profile: "default"
+21-Oct-2022 12:23:16 INFO - Started OnlineSsApplication in 8.37 seconds (JVM running for 10.308)
