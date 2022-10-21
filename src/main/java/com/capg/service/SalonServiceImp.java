@@ -7,11 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.capg.dto.SalonServicedto;
-import com.capg.entity.Orders;
 import com.capg.entity.SalonService;
-import com.capg.exception.OrderServiceNotFoundException;
 import com.capg.exception.SalonServiceNotFoundException;
 import com.capg.exception.ServiceAlreadyExistsException;
 import com.capg.repository.ISalonRepository;
@@ -32,25 +28,17 @@ public class SalonServiceImp implements ISalonService{
     	if(salon.isPresent()) {
     		throw new ServiceAlreadyExistsException("Service.SERVICE_ALREADY_EXISTS");
     	}
-		SalonService s=new SalonService();
-		s.setServiceId(salonService.getServiceId());
-		s.setServiceName(salonService.getServiceName());
-		s.setServicePrice(salonService.getServicePrice());
-		s.setServiceDuration(salonService.getServiceDuration());
-		s.setDiscount(salonService.getDiscount());
-		
-		salonRepository.save(s);
-		return s;
+		salonRepository.save(salonService);
+		return salonService;
 		
 	}
 
 	
 	@Override
-	public SalonService removeService(Long serviceId) throws SalonServiceNotFoundException{
+	public void removeService(Long serviceId) throws SalonServiceNotFoundException{
 		Optional<SalonService> salon = salonRepository.findById(serviceId);
 		salon.orElseThrow(() -> new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND"));
 		salonRepository.deleteById(serviceId);
-		return null;
 	}
 	
 	@Override
@@ -65,13 +53,7 @@ public class SalonServiceImp implements ISalonService{
 	public SalonService getService(Long serviceId) throws SalonServiceNotFoundException{
 		Optional<SalonService> optional = salonRepository.findById(serviceId);
 		SalonService s = optional.orElseThrow(() -> new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND"));
-		SalonService s1 = new SalonService();
-		s1.setDiscount(s.getDiscount());
-		s1.setServiceName(s.getServiceName());
-		s1.setServiceDuration(s.getServiceDuration());
-		s1.setServiceId(s.getServiceId());
-		s1.setServicePrice(s.getServicePrice());
-		return s1;
+		return s;
 		
 	}
 

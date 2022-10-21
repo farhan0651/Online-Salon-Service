@@ -12,7 +12,6 @@ import com.capg.dto.Appointmentdto;
 import com.capg.entity.Appointment;
 import com.capg.exception.AppointmentAlreadyExistsException;
 import com.capg.exception.AppointmentServiceNotFoundException;
-import com.capg.exception.CustomerAlreadyExistsException;
 import com.capg.repository.IAppointmentRepository;
 
 @Service(value="appointmentService")
@@ -21,6 +20,8 @@ public class AppointmentServiceImp implements IAppointmentService{
 	@Autowired
 	private IAppointmentRepository appointmentRepository;
 	
+	
+	//Function for adding an appointment
 	@Override
 	public Appointment addAppointment(Appointmentdto appointment)throws AppointmentAlreadyExistsException {
 		Optional<Appointment> appointment2 = appointmentRepository.findById(appointment.getAppointmentId());
@@ -34,30 +35,6 @@ public class AppointmentServiceImp implements IAppointmentService{
 		appointmentEntity.setVisitType(appointment.getVisitType());
 		appointmentEntity.setPreferredDate(appointment.getPreferredDate());
 		appointmentEntity.setPreferredTime(appointment.getPreferredTime());
-		
-		//CustomerDTO
-		/*
-		Customer customer= new Customer();
-		customer.setName(appointment.getCustomerdto().getName());
-		customer.setEmail(appointment.getCustomerdto().getEmail());
-		customer.setContactNo(appointment.getCustomerdto().getContactNo());
-		appointment.setCustomer(customer);
-		
-		//PaymentDTO
-		Payment payment= new Payment();
-		payment.setPaymentId(appointment.getPayment().getPaymentId());
-		payment.setStatus(appointment.getPayment().getStatus());
-		payment.setType(appointment.getPayment().getType());
-		appointment.setPayment(payment);
-		
-		//SalonService
-		SalonService salonService= new SalonService();
-		salonService.setServiceId(appointment.getSalonService().getServiceId());
-		salonService.setServiceName(appointment.getSalonService().getServiceName());
-		salonService.setServicePrice(appointment.getSalonService().getServicePrice());
-		salonService.setServiceDuration(appointment.getSalonService().getServiceDuration());
-		appointment.setSalonService(salonService);
-		*/
 		appointmentEntity.setPayment(appointment.getPayment());
 		appointmentEntity.setSalonService(appointment.getSalonService());
 		appointmentEntity.setCustomer(appointment.getCustomer());
@@ -66,6 +43,8 @@ public class AppointmentServiceImp implements IAppointmentService{
 		}
 	}
 	
+	
+	//Function for removing an appointment by getting the appointment id from the user
 	@Override
 	public void removeAppointment(long id)throws AppointmentServiceNotFoundException {
 		Optional<Appointment> appointment = appointmentRepository.findById(id);
@@ -73,6 +52,8 @@ public class AppointmentServiceImp implements IAppointmentService{
 		appointmentRepository.deleteById(id);
 	}
 	
+	
+	//Function for updating the location of an existing appointment
 	@Override
 	public void updateAppointment(long id,Appointment appointments)throws AppointmentServiceNotFoundException {
 		Optional<Appointment> appointment = appointmentRepository.findById(id);
@@ -80,6 +61,8 @@ public class AppointmentServiceImp implements IAppointmentService{
 		a.setLocation(appointments.getLocation());
 	}
 	
+	
+	//Function for getting an appointment by getting id from the user
 	@Override
 	public Appointmentdto getAppointment(Long id) throws AppointmentServiceNotFoundException{ 
 		Optional<Appointment> optional = appointmentRepository.findById(id);
@@ -96,6 +79,8 @@ public class AppointmentServiceImp implements IAppointmentService{
 		return appointment2;
 	}
 	
+	
+	//Function for getting all appointments
 	@Override
 	public List<Appointmentdto> getAllAppointments()throws AppointmentServiceNotFoundException {
 		Iterable<Appointment> appointments = appointmentRepository.findAll(); 
@@ -117,6 +102,8 @@ public class AppointmentServiceImp implements IAppointmentService{
 		return appointments2;
 	}
 	
+	
+	//Function for getting open appointments
 	@Override
 	public List<Appointmentdto> getOpenAppointments()throws AppointmentServiceNotFoundException {
 		Iterable<Appointment> appointments = appointmentRepository.findAll(); 

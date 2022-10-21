@@ -28,11 +28,7 @@ public class IPaymentServiceImp implements IPaymentService {
 	   public Payment getPaymentDetails(long paymentId) throws PaymentServiceNotFoundException{ 
 			Optional<Payment> optional = iPaymentRepository.findById(paymentId);
 			Payment payment  = optional.orElseThrow(() -> new PaymentServiceNotFoundException("Service.CUSTOMER_NOT_FOUND"));
-			Payment payment2 = new Payment();
-			payment2.setPaymentId(payment.getPaymentId());
-			payment2.setType(payment.getType());
-			payment2.setStatus(payment.getStatus());
-			return payment2;
+			return payment;
 		}
 	
 		//Add Payment Details
@@ -43,21 +39,8 @@ public class IPaymentServiceImp implements IPaymentService {
 			{
 				throw new PaymentAlreadyExistsException("Service.PAYMENT_ALREADY_EXISTS");
 			}
-			Payment paymentInfo = new Payment();
-			paymentInfo.setPaymentId(payment.getPaymentId());
-			paymentInfo.setStatus(payment.getStatus());
-			paymentInfo.setType(payment.getType());
-			paymentInfo.setCards(payment.getCards());
-			
-			/*CardDTO card = new CardDTO();
-			card.setId(payment.getCardDTO().getId());
-			card.setBankName(payment.getCardDTO().getBankName());
-			card.setCardName(payment.getCardDTO().getCardName());
-			card.setCardNumber(payment.getCardDTO().getCardNumber());
-			card.setExpiryDate(payment.getCardDTO().getExpiryDate());
-			paymentInfo.set*/
-			 iPaymentRepository.save(paymentInfo);
-			return paymentInfo;
+			 iPaymentRepository.save(payment);
+			return payment;
 			
 			
 		}

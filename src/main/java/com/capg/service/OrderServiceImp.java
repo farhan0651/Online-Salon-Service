@@ -9,10 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.capg.entity.Customer;
 import com.capg.entity.Orders;
-import com.capg.entity.Payment;
 import com.capg.exception.OrderAlreadyExistsException;
 import com.capg.exception.OrderServiceNotFoundException;
 import com.capg.repository.IOrderRepository;
@@ -31,24 +28,9 @@ public class OrderServiceImp implements IOrderService{
 		if(orders.isPresent())
 		{
 			throw new OrderAlreadyExistsException("Service.ORDER_ALREADY_EXISTS");
-		}
-		Orders orderEntity = new Orders();
-		orderEntity.setOrderId(order.getOrderId());
-		orderEntity.setAmount(order.getAmount());
-		orderEntity.setBillingDate(order.getBillingDate());
-		orderEntity.setPaymentMethod(order.getPaymentMethod());
-		orderEntity.setCustomer(order.getCustomer());
-		orderEntity.setPayment(order.getPayment());	
-		/*Customer custm = new Customer();
-		custm.setUserId(order.getCustomer().getUserId());
-		orderEntity.setCustomer(custm);
-		
-		Payment paym = new Payment();
-		paym.setPaymentId(order.getPayment().getPaymentId());
-		orderEntity.setPayment(paym);*/
-			
-		orderRepository.save(orderEntity);
-		return orderEntity;
+		}	
+		orderRepository.save(order);
+		return order;
 		
 	}
 	@Override
@@ -75,13 +57,7 @@ public class OrderServiceImp implements IOrderService{
 	public Orders getOrderDetails(Long orderId) throws OrderServiceNotFoundException{
 		Optional<Orders> optional = orderRepository.findById(orderId);
 		Orders ord = optional.orElseThrow(() -> new OrderServiceNotFoundException("Service.Order_NOT_FOUND"));
-		Orders order1 = new Orders();
-		order1.setAmount(ord.getAmount());
-		order1.setBillingDate(ord.getBillingDate());
-		order1.setPaymentMethod(ord.getPaymentMethod());
-		order1.setCustomer(ord.getCustomer());
-		order1.setPayment(ord.getPayment());
-		return order1;
+		return ord;
 	}
 	public List<Orders> getAllOrders() throws OrderServiceNotFoundException{
 		Iterable<Orders> order2 = orderRepository.findAll(); 

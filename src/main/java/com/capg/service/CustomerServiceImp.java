@@ -3,16 +3,11 @@ package com.capg.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.capg.dto.Addressdto;
 import com.capg.dto.Customerdto;
-import com.capg.entity.Address;
 import com.capg.entity.Customer;
 import com.capg.exception.CustomerAlreadyExistsException;
 import com.capg.exception.CustomerServiceNotFoundException;

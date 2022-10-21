@@ -1,8 +1,6 @@
 package com.capg.service;
 
 import java.util.List;
-
-import com.capg.dto.SalonServicedto;
 import com.capg.entity.SalonService;
 import com.capg.exception.SalonServiceNotFoundException;
 import com.capg.exception.ServiceAlreadyExistsException;
@@ -10,7 +8,7 @@ import com.capg.exception.ServiceAlreadyExistsException;
 public interface ISalonService {
 
 	public SalonService addService(SalonService salonService) throws ServiceAlreadyExistsException;
-	public SalonService removeService(Long serviceId) throws SalonServiceNotFoundException;
+	public void removeService(Long serviceId) throws SalonServiceNotFoundException;
      public SalonService updateService(Long serviceId, SalonService salonService) throws SalonServiceNotFoundException;
 	public SalonService getService(Long serviceId) throws SalonServiceNotFoundException;
 	public List<SalonService> getAllServices() throws SalonServiceNotFoundException;

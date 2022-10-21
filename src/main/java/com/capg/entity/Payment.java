@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.capg.dto.Paymentdto;
-import com.capg.dto.SalonServicedto;
 @Entity
 public class Payment {
 	@Id

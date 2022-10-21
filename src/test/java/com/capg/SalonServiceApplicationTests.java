@@ -71,6 +71,6 @@ class SalonServiceApplicationTests {
 		 when(salonRepository.findById(s1.getServiceId())).thenReturn(Optional.ofNullable(s1));
 		 when(salonRepository.save(s1)).thenReturn(s1);
 		 assertEquals(s1.getDiscount(),salonserviceimp.updateService(s1.getServiceId(),s1).getDiscount());
-	 }*/ 
+	 } */
 	 
 }
