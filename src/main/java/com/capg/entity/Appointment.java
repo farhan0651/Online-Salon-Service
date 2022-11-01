@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,6 +19,7 @@ import com.capg.dto.Appointmentdto;
 @Entity
 public class Appointment {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private long appointmentId;
 	private String location;
 	private String visitType;
@@ -26,7 +29,7 @@ public class Appointment {
 	@JoinColumn(name = "serviceName")
 	private SalonService salonService;
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name= "userId")
+	@JoinColumn(name= "customerId")
 	private Customer customer;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="paymentId")

@@ -58,15 +58,15 @@ public ResponseEntity<List<Appointmentdto>> getOpenAppointments()throws Appointm
 }
 
 @PostMapping(value = "/addAppointment")
-public ResponseEntity<String> addCustomer(@RequestBody Appointmentdto appoitntmet) throws AppointmentAlreadyExistsException {
-	Appointment app = iappointmentService.addAppointment(appoitntmet);
+public ResponseEntity<String> addCustomer(@RequestBody Appointmentdto appoitntmetDTO) throws AppointmentAlreadyExistsException {
+	Appointment app = iappointmentService.addAppointment(appoitntmetDTO);
 	String successMessage = environment.getProperty("appointment added -") + app;
 	LOGGER.info(successMessage);
 	return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 }
 
 @PutMapping(value = "/updateAppointment/{id}")
-public ResponseEntity<String> updateCustomer(@PathVariable @Min(value=1,message ="Please give AppointmentId >=1") Long id , @RequestBody Appointment appointment)
+public ResponseEntity<String> updateCustomer(@PathVariable @Min(value=1,message ="Please give AppointmentId >=1") Long id , @RequestBody Appointmentdto appointment)
 		throws AppointmentServiceNotFoundException {
 	iappointmentService.updateAppointment(id, appointment);
 	String successMessage = environment.getProperty("AppointmentUpdatedSuccessfully");

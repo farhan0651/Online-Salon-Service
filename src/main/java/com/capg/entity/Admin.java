@@ -1,52 +1,30 @@
 package com.capg.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+
+import com.capg.dto.AdminDTO;
 
 @Entity
 public class Admin {
-    @Id
-	private int AdminId;
-	private String password;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user1Id")
-	private User1 user1;
-	public Admin(int adminId, String password, User1 user1) {
-		super();
-		AdminId = adminId;
-		this.password = password;
-		this.user1 = user1;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long userId;
+
+	public long getUserId() {
+		return userId;
 	}
-	public Admin() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public int getAdminId() {
-		return AdminId;
-	}
-	public void setAdminId(int adminId) {
-		AdminId = adminId;
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	
-	public String getPassword() {
-		return password;
+	public AdminDTO toAdminDTO() {
+		AdminDTO adminDTO = new AdminDTO();
+		adminDTO.setUserId(this.getUserId());
+		return adminDTO;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public User1 getUser1() {
-		return user1;
-	}
-	public void setUser1(User1 user1) {
-		this.user1 = user1;
-	}
-	@Override
-	public String toString() {
-		return "Admin [AdminId=" + AdminId + ", UserId=" +", password=" + password + ", user1=" + user1 + "]";
-	}
-	
-	
+
 }

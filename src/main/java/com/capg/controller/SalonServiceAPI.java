@@ -18,11 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.capg.dto.Customerdto;
-import com.capg.dto.SalonServicedto;
 import com.capg.entity.SalonService;
-import com.capg.exception.CustomerServiceNotFoundException;
 import com.capg.exception.SalonServiceNotFoundException;
 import com.capg.exception.ServiceAlreadyExistsException;
 import com.capg.service.ISalonService;

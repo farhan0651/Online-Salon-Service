@@ -21,7 +21,7 @@ public class Orders {
 	private Payment payment;
 	private String paymentMethod;
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name= "userId")
+	@JoinColumn(name= "customerId")
 	private Customer customer;
 	public static Orders DTOToentity(Ordersdto order3) {
 		

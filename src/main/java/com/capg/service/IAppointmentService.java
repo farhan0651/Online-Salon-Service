@@ -12,7 +12,7 @@ import java.util.List;
 public interface IAppointmentService{
 	public Appointment addAppointment(Appointmentdto appointment)throws AppointmentAlreadyExistsException;
 	public void removeAppointment(long id)throws AppointmentServiceNotFoundException;
-	public void updateAppointment(long id,Appointment appointments)throws AppointmentServiceNotFoundException;
+	public void updateAppointment(long id,Appointmentdto appointments)throws AppointmentServiceNotFoundException;
 	public Appointmentdto getAppointment(Long id)throws AppointmentServiceNotFoundException;
 	public List<Appointmentdto> getAllAppointments()throws AppointmentServiceNotFoundException;
 	public List<Appointmentdto> getOpenAppointments()throws AppointmentServiceNotFoundException;;

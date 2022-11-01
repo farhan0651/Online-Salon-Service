@@ -55,7 +55,7 @@ public class AppointmentServiceImp implements IAppointmentService{
 	
 	//Function for updating the location of an existing appointment
 	@Override
-	public void updateAppointment(long id,Appointment appointments)throws AppointmentServiceNotFoundException {
+	public void updateAppointment(long id,Appointmentdto appointments)throws AppointmentServiceNotFoundException {
 		Optional<Appointment> appointment = appointmentRepository.findById(id);
 		Appointment a = appointment.orElseThrow(() -> new AppointmentServiceNotFoundException("Service.APPOINTMENT_NOT_FOUND"));
 		a.setLocation(appointments.getLocation());

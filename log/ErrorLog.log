@@ -800,3 +800,18 @@
 21-Oct-2022 12:23:08 DEBUG - Running with Spring Boot v2.7.4, Spring v5.3.23
 21-Oct-2022 12:23:08 INFO - No active profile set, falling back to 1 default profile: "default"
 21-Oct-2022 12:23:16 INFO - Started OnlineSsApplication in 8.37 seconds (JVM running for 10.308)
+21-Oct-2022 12:40:42 INFO - null
+21-Oct-2022 12:40:53 INFO - null
+21-Oct-2022 13:59:38 INFO - Starting CustomerApplicationTests using Java 17.0.4.1 on Farhan with PID 19476 (started by FK in D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main)
+21-Oct-2022 13:59:38 DEBUG - Running with Spring Boot v2.7.4, Spring v5.3.23
+21-Oct-2022 13:59:38 INFO - No active profile set, falling back to 1 default profile: "default"
+21-Oct-2022 13:59:48 INFO - Started CustomerApplicationTests in 10.503 seconds (JVM running for 14.171)
+02-Nov-2022 00:56:27 INFO - Starting OnlineSsApplication using Java 17.0.4.1 on Farhan with PID 30644 (D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main\target\classes started by FK in D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main)
+02-Nov-2022 00:56:27 DEBUG - Running with Spring Boot v2.7.4, Spring v5.3.23
+02-Nov-2022 00:56:27 INFO - No active profile set, falling back to 1 default profile: "default"
+02-Nov-2022 01:01:56 INFO - Starting OnlineSsApplication using Java 17.0.4.1 on Farhan with PID 14072 (D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main\target\classes started by FK in D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main)
+02-Nov-2022 01:01:56 DEBUG - Running with Spring Boot v2.7.4, Spring v5.3.23
+02-Nov-2022 01:01:56 INFO - No active profile set, falling back to 1 default profile: "default"
+02-Nov-2022 01:07:06 INFO - Starting OnlineSsApplication using Java 17.0.4.1 on Farhan with PID 24784 (D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main\target\classes started by FK in D:\Downloads\FinalOnlineSalonservice-main (1)\FinalOnlineSalonservice-main)
+02-Nov-2022 01:07:06 DEBUG - Running with Spring Boot v2.7.4, Spring v5.3.23
+02-Nov-2022 01:07:06 INFO - No active profile set, falling back to 1 default profile: "default"

@@ -4,23 +4,24 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
-
-import com.capg.entity.Appointment;
 import com.capg.entity.Customer;
 import com.capg.entity.User1;
 
 public class Customerdto {
 
 	@NotNull(message = "Please provide valid userId")
-	private Integer userId;
+	private Integer customerId;
 	private String name;
 	private String email;
 	private String contactNo;
 	private LocalDate dob;
 	private User1 user1;
+	
+	
 	public Integer getUserId() {
-		return userId;
+		return customerId;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -37,7 +38,7 @@ public class Customerdto {
 		return user1;
 	}
 	public void setUserId(Integer userId) {
-		this.userId = userId;
+		this.customerId = userId;
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -56,7 +57,7 @@ public class Customerdto {
 	}
 	@Override
 	public String toString() {
-		return "Customerdto [userId=" + userId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
+		return "Customerdto [userId=" + customerId + ", name=" + name + ", email=" + email + ", contactNo=" + contactNo
 				+ ", dob=" + dob + ", user1=" + user1 + "]";
 	}
 	public Customerdto() {
@@ -65,7 +66,7 @@ public class Customerdto {
 	}
 	public Customerdto(Integer userId, String name, String email, String contactNo, LocalDate dob, User1 user1) {
 		super();
-		this.userId = userId;
+		this.customerId = userId;
 		this.name = name;
 		this.email = email;
 		this.contactNo = contactNo;
@@ -84,23 +85,11 @@ public class Customerdto {
 		return customer3;
 		
 	}
-	/*
-	 public static Appointmentdto entityToDTO(Appointment appointment2) {
-		Appointmentdto appointment3 = new Appointmentdto();
-		appointment3.setAppointmentId(appointment2.getAppointmentId());
-		appointment3.setLocation(appointment2.getLocation());
-		appointment3.setVisitType(appointment2.getVisitType());
-		appointment3.setPreferredDate(appointment2.getPreferredDate());
-		appointment3.setPreferredTime(appointment2.getPreferredTime());
-		return appointment3;
-		
-	} 
-	 */
 	 
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(contactNo, dob, email, name, user1, userId);
+		return Objects.hash(contactNo, dob, email, name, user1, customerId);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -113,7 +102,7 @@ public class Customerdto {
 		Customerdto other = (Customerdto) obj;
 		return Objects.equals(contactNo, other.contactNo) && Objects.equals(dob, other.dob)
 				&& Objects.equals(email, other.email) && Objects.equals(name, other.name)
-				&& Objects.equals(user1, other.user1) && Objects.equals(userId, other.userId);
+				&& Objects.equals(user1, other.user1) && Objects.equals(customerId, other.customerId);
 	}
 	
 	

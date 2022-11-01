@@ -1,37 +1,23 @@
 package com.capg.dto;
 
-import javax.validation.constraints.NotNull;
 
-import com.capg.entity.User1;
+import com.capg.entity.Admin;
 
-public class Admindto {
+public class AdminDTO {
+	private long userId;
 
-	@NotNull(message = "Please provide valid AdminId")
-	private int AdminId;
-	private String password;
-	private User1 user1;
-	public int getAdminId() {
-		return AdminId;
+	public long getUserId() {
+		return userId;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public User1 getUser1() {
-		return user1;
-	}
-	public void setAdminId(int adminId) {
-		AdminId = adminId;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public void setUser1(User1 user1) {
-		this.user1 = user1;
-	}
-	@Override
-	public String toString() {
-		return "Admindto [AdminId=" + AdminId + ", password=" + password + ", user1=" + user1 + "]";
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	
-	
+	public Admin toAdmin() {
+		Admin admin = new Admin();
+		admin.setUserId(this.getUserId());
+		return admin;
+	}
+
 }

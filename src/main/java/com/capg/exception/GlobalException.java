@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalException  {
 	
+	@ExceptionHandler(value= UserException.class)
+	public ResponseEntity<String>UserException(UserException userException){
+		return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(value= AppointmentServiceNotFoundException.class)
 	public ResponseEntity<String>AppointmentServiceNotFoundException(AppointmentServiceNotFoundException appointmentServiceNotFoundException){
 		return new ResponseEntity<String>("Appointment not found, Try with another Appointment Id", HttpStatus.NOT_FOUND);
