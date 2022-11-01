@@ -1,17 +1,26 @@
 package com.capg.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.capg.utility.ErrorResponse;
 
 
 @ControllerAdvice
 public class GlobalException  {
 	
+	@Autowired
+	private Environment environment;
+	
 	@ExceptionHandler(value= UserException.class)
-	public ResponseEntity<String>UserException(UserException userException){
-		return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+	public ResponseEntity<ErrorResponse> userExceptionHandler(UserException exception){
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		ErrorResponse error = new ErrorResponse(environment.getProperty(exception.getMessage()), status.value());
+		return new ResponseEntity<ErrorResponse>(error, status);
 	}
 	
 	@ExceptionHandler(value= AppointmentServiceNotFoundException.class)

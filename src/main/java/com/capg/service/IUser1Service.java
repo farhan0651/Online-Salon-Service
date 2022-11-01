@@ -46,7 +46,7 @@ public interface IUser1Service {
 		 * @return the user id
 		 * @throws UserException the user exception
 		 */
-		//public User1dto getUserId(String userName)throws UserException;
+		public User1dto getUserId(String userName)throws UserException;
 
 	}
 

@@ -111,12 +111,11 @@ public class User1ServiceImp implements IUser1Service {
 	 * @throws UserException the user exception
 	 */
 
-	//@Override
-	/*
+	@Override
 	public User1dto getUserId(String userName) throws UserException {
 		Optional<User1> repUser=userRepository.finduserIdByUserName(userName);
 		// check if user exists
-		User1 u=repUser.orElseThrow(()->new UserException("User.UserName_Dosenot_Exesist"));
+		User1 u=repUser.orElseThrow(()->new UserException("User.UserName_Doesnot_Exesist"));
 		return u.toUserDTO();
-	}*/
+	}
 }

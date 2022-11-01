@@ -77,10 +77,10 @@ public class UserAPI {
 	 * @return the user id
 	 * @throws UserException the user exception
 	 */
-	/*@GetMapping("/{userId}")
+	@GetMapping("/{userName}")
 	public ResponseEntity<Long> getUserId(@PathVariable String userName) throws UserException{
 		User1dto userId=IuserService.getUserId(userName);
 		return new ResponseEntity<Long>(userId.getUserId(),HttpStatus.OK);
-	}*/
+	}
 
 }
