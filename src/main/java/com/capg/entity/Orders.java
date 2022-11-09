@@ -23,6 +23,10 @@ public class Orders {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name= "customerId")
 	private Customer customer;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name= "serviceId")
+	private SalonService salonservice;
+	
 	public static Orders DTOToentity(Ordersdto order3) {
 		
 		Orders order4 = new Orders();
@@ -30,6 +34,10 @@ public class Orders {
 		order4.setAmount(order3.getAmount());
 		order4.setBillingDate(order3.getBillingDate());
 		order4.setPaymentMethod(order3.getPaymentMethod());
+		order4.setPayment(order3.getPayment());
+		order4.setCustomer(order3.getCustomer());
+		order4.setSalonservice(order3.getSalonservice());
+		
 		return order4;
 	}
 	public Orders() {
@@ -37,7 +45,7 @@ public class Orders {
 		// TODO Auto-generated constructor stub
 	}
 	public Orders(long orderId, double amount, LocalDate billingDate, Payment payment, String paymentMethod,
-			Customer customer) {
+			Customer customer, SalonService salonservice) {
 		super();
 		this.orderId = orderId;
 		this.amount = amount;
@@ -45,6 +53,7 @@ public class Orders {
 		this.payment = payment;
 		this.paymentMethod = paymentMethod;
 		this.customer = customer;
+		this.salonservice = salonservice;
 	}
 	public long getOrderId() {
 		return orderId;
@@ -82,14 +91,21 @@ public class Orders {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	public SalonService getSalonservice() {
+		return salonservice;
+	}
+	public void setSalonservice(SalonService salonservice) {
+		this.salonservice = salonservice;
+	}
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", amount=" + amount + ", billingDate=" + billingDate + ", payment="
-				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + "]";
+				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", salonservice="
+				+ salonservice + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, billingDate, customer, orderId, payment, paymentMethod);
+		return Objects.hash(amount, billingDate, customer, orderId, payment, paymentMethod, salonservice);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -103,9 +119,9 @@ public class Orders {
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
 				&& Objects.equals(billingDate, other.billingDate) && Objects.equals(customer, other.customer)
 				&& orderId == other.orderId && Objects.equals(payment, other.payment)
-				&& Objects.equals(paymentMethod, other.paymentMethod);
+				&& Objects.equals(paymentMethod, other.paymentMethod)
+				&& Objects.equals(salonservice, other.salonservice);
 	}
-	
 	
 	
 

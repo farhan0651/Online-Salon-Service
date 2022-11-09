@@ -3,12 +3,15 @@ package com.capg.service;
 import java.util.ArrayList;
 
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.capg.dto.Ordersdto;
 import com.capg.entity.Orders;
 import com.capg.exception.OrderAlreadyExistsException;
 import com.capg.exception.OrderServiceNotFoundException;
@@ -23,45 +26,59 @@ public class OrderServiceImp implements IOrderService{
 	private IOrderRepository orderRepository;
 	
 	@Override
-	public Orders addOrder(Orders order) throws OrderAlreadyExistsException{
+	public Ordersdto addOrder(Ordersdto order) throws OrderAlreadyExistsException{
 		Optional<Orders> orders = orderRepository.findById(order.getOrderId());
 		if(orders.isPresent())
-		{
+		
 			throw new OrderAlreadyExistsException("Service.ORDER_ALREADY_EXISTS");
-		}	
-		orderRepository.save(order);
+		
+		Orders order1 = Orders.DTOToentity(order);
+		orderRepository.save(order1);
 		return order;
 		
 	}
 	@Override
-	public Orders deleteOrder(Long orderId) throws OrderServiceNotFoundException{
+	public void deleteOrder(Long orderId) throws OrderServiceNotFoundException{
 		
 		Optional<Orders> orders = orderRepository.findById(orderId);
-		Orders ord = orders.orElseThrow(() -> new OrderServiceNotFoundException("Service.Order_NOT_FOUND"));
-		orderRepository.deleteById(orderId);
-		return ord;
-		
-		
+		Orders order1 = orders.orElseThrow(() -> new OrderServiceNotFoundException("Service.Order_NOT_FOUND"));
+		order1.setCustomer(null);
+		order1.setPayment(null);
+		order1.setSalonservice(null);
+		orderRepository.deleteById(orderId);	
+	
 	}
+
 	@Override
-	public Orders updateOrder(Long orderId, Orders order) throws OrderServiceNotFoundException{
+	public Ordersdto updateOrder(Long orderId, Ordersdto order) throws OrderServiceNotFoundException{
 		Optional<Orders> order1 = orderRepository.findById(orderId);
 		Orders o = order1.orElseThrow(() -> new OrderServiceNotFoundException("Service.Order_NOT_FOUND"));
 		o.setPaymentMethod(order.getPaymentMethod());
 		o.setAmount(order.getAmount());
 		o.setBillingDate(order.getBillingDate());
-		return o;
+		return order;
 		
 	}
 	@Override
-	public Orders getOrderDetails(Long orderId) throws OrderServiceNotFoundException{
+	public Ordersdto getOrderDetails(Long orderId) throws OrderServiceNotFoundException{
 		Optional<Orders> optional = orderRepository.findById(orderId);
 		Orders ord = optional.orElseThrow(() -> new OrderServiceNotFoundException("Service.Order_NOT_FOUND"));
-		return ord;
+		Ordersdto ordersdto = Ordersdto.entityToDTO(ord);
+		return ordersdto;
 	}
-	public List<Orders> getAllOrders() throws OrderServiceNotFoundException{
-		Iterable<Orders> order2 = orderRepository.findAll(); 
-		List<Orders> order3 = new ArrayList<>();
+	@Override
+	public List<Ordersdto> getAllOrders() throws OrderServiceNotFoundException{
+		//Iterable<Orders> order2 = orderRepository.findAll(); 
+		List<Orders> order = orderRepository.findAll();
+		if(order.isEmpty())
+			throw new OrderServiceNotFoundException("Service.Order_NOT_FOUND");
+		List<Ordersdto> orders = new ArrayList<>();
+		order.forEach(o -> {
+			orders.add(Ordersdto.entityToDTO(o));
+		});
+		return orders;
+	}
+				/*new ArrayList<>();
 		order2.forEach(order -> {
 			Orders ords = new Orders();
 			ords.setOrderId(order.getOrderId());
@@ -74,7 +91,13 @@ public class OrderServiceImp implements IOrderService{
 		});
 		if (order3.isEmpty())
 			throw new OrderServiceNotFoundException("Service.Order_NOT_FOUND");
-		return order3;
-	}
-
+		return order3;*/
+	
+	/*List<Trainee> fromRepo = traineeRepository.findAll();
+	if(fromRepo.isEmpty()) throw new WomenEmpException("Service.TRAINEE_NOT_PRESENT");
+	List<TraineeDTO> trainees = new ArrayList<>();
+	fromRepo.forEach(p -> {
+		trainees.add(TraineeDTO.entityToDTO(p));
+	});
+	return trainees;*/
 }

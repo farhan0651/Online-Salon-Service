@@ -2,16 +2,15 @@ package com.capg.service;
 
 import java.util.List;
 
-import com.capg.entity.Payment;
+import com.capg.dto.Paymentdto;
 import com.capg.exception.PaymentAlreadyExistsException;
 import com.capg.exception.PaymentServiceNotFoundException;
 
 public interface IPaymentService {
 	
-	public Payment getPaymentDetails(long paymentId) throws PaymentServiceNotFoundException;
-	public Payment addPayment(Payment payment) throws PaymentAlreadyExistsException;
-	public Payment deletePayment(long paymentId) throws PaymentServiceNotFoundException;
-	public Payment updatePayment(long paymentId, Payment payment) throws PaymentServiceNotFoundException;
-	public List<Payment> getAllPaymentDetails() throws PaymentServiceNotFoundException;
-
+	public Paymentdto getPaymentDetails(long paymentId) throws PaymentServiceNotFoundException;
+	public Paymentdto addPayment(Paymentdto payment) throws PaymentAlreadyExistsException;
+	public void deletePayment(long paymentId) throws PaymentServiceNotFoundException;
+	public Paymentdto updatePayment(long paymentId, Paymentdto payment) throws PaymentServiceNotFoundException;
+	public List<Paymentdto> getAllPaymentDetails() throws PaymentServiceNotFoundException;
 }

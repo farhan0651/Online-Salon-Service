@@ -26,7 +26,7 @@ public class Appointment {
 	private LocalDate preferredDate;
 	private LocalTime preferredTime;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "serviceName")
+	@JoinColumn(name = "serviceId")
 	private SalonService salonService;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name= "customerId")

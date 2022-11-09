@@ -59,18 +59,120 @@ class SalonServiceApplicationTests {
 
 	@Test
 	void validSalonServiceAddition() throws ServiceAlreadyExistsException{
-		SalonServicedto salonDTO = SalonServicedto.entityToDTO(SalonServiceApplicationTests.demo());
-		Mockito.when(salonRepository.findById(salonDTO.getServiceId())).thenReturn(Optional.empty());
-		Assertions.assertEquals(salon.addService(SalonService.DTOToentity(salonDTO)), SalonService.DTOToentity(salonDTO));
+		SalonService salonService = SalonServiceApplicationTests.demo();
+		Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.empty());
+		Assertions.assertEquals(salon.addService(salonService), salonService);
 	}
-	/*
+	@Test
+	void invalidServiceAddition() throws ServiceAlreadyExistsException{
+		SalonService salonService = SalonServiceApplicationTests.demo();
+		Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.of(salonService));
+		ServiceAlreadyExistsException ex = Assertions.assertThrows(ServiceAlreadyExistsException.class, () -> salon.addService(salonService));
+		Assertions.assertEquals(ex.getMessage(), "Service.SERVICE_ALREADY_EXISTS");
+	}
+	@Test
+	void validRemoveService() throws ServiceAlreadyExistsException{
+		SalonService salonService = SalonServiceApplicationTests.demo();
+		Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.of(salonService));
+		Assertions.assertDoesNotThrow(() -> salon.removeService(salonService.getServiceId()));
+	}
+	
+	@Test
+	void invalidRemoveService() throws SalonServiceNotFoundException{
+		SalonService salonService = SalonServiceApplicationTests.demo();
+		Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.empty());
+		SalonServiceNotFoundException ex = Assertions.assertThrows(SalonServiceNotFoundException.class, ()-> salon.removeService(salonService.getServiceId()));
+		Assertions.assertEquals(ex.getMessage(), "Service.SalonService_NOT_FOUND");
+	}
 	 @Test
-	    public void validtUpdate() throws SalonServiceNotFoundException {
-
-		 when(salonRepository.existsById(s1.getServiceId())).thenReturn(true);
+	    public void validServiceUpdate() throws SalonServiceNotFoundException {
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+		 Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.of(salonService));
+		 assertEquals(salonService.getDiscount(),salon.updateService(salonService.getServiceId(),salonService).getDiscount());
+		 /*when(salonRepository.existsById(s1.getServiceId())).thenReturn(true);
 		 when(salonRepository.findById(s1.getServiceId())).thenReturn(Optional.ofNullable(s1));
 		 when(salonRepository.save(s1)).thenReturn(s1);
 		 assertEquals(s1.getDiscount(),salonserviceimp.updateService(s1.getServiceId(),s1).getDiscount());
-	 } */
+		 */
+	 }
+	 @Test
+		void invalidServiceUpdate() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.empty());
+			SalonServiceNotFoundException ex = Assertions.assertThrows(SalonServiceNotFoundException.class, () -> salon.updateService((salonService.getServiceId()),salonService));
+			Assertions.assertEquals(ex.getMessage(), "Service.SalonService_NOT_FOUND");
+		}
+		
+	 @Test
+		void validGetService() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.of(salonService));
+			Assertions.assertEquals(salon.getService(salonService.getServiceId()), salonService);
+		}
+	 @Test
+		void invalidGetService() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			Mockito.when(salonRepository.findById(salonService.getServiceId())).thenReturn(Optional.empty());
+			SalonServiceNotFoundException ex = Assertions.assertThrows(SalonServiceNotFoundException.class, ()-> salon.getService(salonService.getServiceId()));
+			Assertions.assertEquals(ex.getMessage(), "Service.SalonService_NOT_FOUND");
+		}
+	 @Test
+		void validGetAllService() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			List<SalonService> list = new ArrayList<>();
+			list.add(salonService);
+			Mockito.when(salonRepository.findAll()).thenReturn(list);
+			Assertions.assertEquals(salon.getAllServices(), list);
+		}
+	 @Test
+		void validgetServiceByName() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+		 List<SalonService> list = new ArrayList<>();
+			list.add(salonService);
+			Mockito.when(salonRepository.findByServiceName(salonService.getServiceName())).thenReturn(list);
+			/*list.forEach(p->{
+				list.add(salonService);
+			});*/
+			Assertions.assertEquals(salon.getServiceByName(salonService.getServiceName()), list);
+		}
+	 @Test
+		void invalidgetServiceByName() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			Mockito.when(salonRepository.findByServiceName(salonService.getServiceName())).thenReturn(new ArrayList<>());
+			SalonServiceNotFoundException ex = Assertions.assertThrows(SalonServiceNotFoundException.class, ()-> salon.getServiceByName(salonService.getServiceName()));
+			Assertions.assertEquals(ex.getMessage(), "Service.SalonService_NOT_FOUND");
+		}
+	 
+	 @Test
+		void validgetServiceByPrice() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+		 List<SalonService> list = new ArrayList<>();
+			list.add(salonService);
+			Mockito.when(salonRepository.findByServicePrice(salonService.getServicePrice())).thenReturn(list);
+			Assertions.assertEquals(salon.getServiceByPrice(salonService.getServicePrice()), list);
+		}
+	 @Test
+		void invalidgetServiceByPrice() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			Mockito.when(salonRepository.findByServicePrice(salonService.getServicePrice())).thenReturn(new ArrayList<>());
+			SalonServiceNotFoundException ex = Assertions.assertThrows(SalonServiceNotFoundException.class, ()-> salon.getServiceByPrice(salonService.getServicePrice()));
+			Assertions.assertEquals(ex.getMessage(), "Service.SalonService_NOT_FOUND");
+		}
+	 @Test
+		void validgetServiceByDuration() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+		 List<SalonService> list = new ArrayList<>();
+			list.add(salonService);
+			Mockito.when(salonRepository.findByServiceDuration(salonService.getServiceDuration())).thenReturn(list);
+			Assertions.assertEquals(salon.getServicesByDuration(salonService.getServiceDuration()), list);
+		}
+	 @Test
+		void invalidgetServiceByDuration() throws SalonServiceNotFoundException{
+		 SalonService salonService = SalonServiceApplicationTests.demo();
+			Mockito.when(salonRepository.findByServiceDuration(salonService.getServiceDuration())).thenReturn(new ArrayList<>());
+			SalonServiceNotFoundException ex = Assertions.assertThrows(SalonServiceNotFoundException.class, ()-> salon.getServicesByDuration(salonService.getServiceDuration()));
+			Assertions.assertEquals(ex.getMessage(), "Service.SalonService_NOT_FOUND");
+		}
+	 
 	 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class SalonServiceAPI {
 	
 	public static final Log LOGGER=LogFactory.getLog(SalonServiceAPI.class);
 
-	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/{serviceId}")
 	public ResponseEntity<SalonService> getService(@PathVariable @Min(value=1,message ="Please give serviceId >=1") Long serviceId) throws SalonServiceNotFoundException {
 		SalonService s = salonService.getService(serviceId);
@@ -43,12 +44,15 @@ public class SalonServiceAPI {
 		return new ResponseEntity<>(s, HttpStatus.OK);
 	} 
 	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/services")
 	public ResponseEntity<List<SalonService>> getAllServices() throws SalonServiceNotFoundException {
 		List<SalonService> s = salonService.getAllServices();
 		LOGGER.info(environment.getProperty("getAllService"));
 		return new ResponseEntity<>(s, HttpStatus.OK);
 	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
 	@PostMapping(value = "/addService")
 	public ResponseEntity<String> addService(@RequestBody SalonService s) throws ServiceAlreadyExistsException {
 		SalonService service = salonService.addService(s);
@@ -57,7 +61,7 @@ public class SalonServiceAPI {
 		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 	}
 
-	
+	@CrossOrigin(origins="http://localhost:3000")
 	@DeleteMapping(value = "/deleteService/{serviceId}")
 	public ResponseEntity<String> removeService(@PathVariable @Min(value=1,message ="Please give serviceId >=1") Long serviceId) throws SalonServiceNotFoundException {
 		salonService.removeService(serviceId) ;
@@ -65,6 +69,8 @@ public class SalonServiceAPI {
 		LOGGER.info(successMessage);
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
 	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
 	@PutMapping(value = "/updateService/{serviceId}")
 	public ResponseEntity<String> updateService(@PathVariable @Min(value=1,message ="Please give serviceId >=1") Long serviceId, @RequestBody SalonService service)
 			throws SalonServiceNotFoundException {
@@ -73,18 +79,24 @@ public class SalonServiceAPI {
 		LOGGER.info(successMessage);
 		return new ResponseEntity<>(successMessage, HttpStatus.OK);
 	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/service/{serviceName}")
 	public ResponseEntity<List<SalonService>> getServiceByName(@PathVariable String serviceName) throws SalonServiceNotFoundException {
 		List<SalonService> s = salonService.getServiceByName(serviceName);
 		LOGGER.info(environment.getProperty("getServiceByName"));
 		return new ResponseEntity<>(s, HttpStatus.OK);
 	} 
+	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/service/ServicePrice/{servicePrice}")
 	public ResponseEntity<List<SalonService>> getServiceByPrice(@PathVariable String servicePrice) throws SalonServiceNotFoundException {
 		List<SalonService> s = salonService.getServiceByPrice(servicePrice);
 		LOGGER.info(environment.getProperty("getServiceByPrice"));
 		return new ResponseEntity<>(s, HttpStatus.OK);
 	} 
+	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/service/ServiceDuration/{serviceDuration}")
 	public ResponseEntity<List<SalonService>> getServiceByDuration(@PathVariable String serviceDuration) throws SalonServiceNotFoundException {
 		List<SalonService> s = salonService.getServicesByDuration(serviceDuration);

@@ -1,29 +1,33 @@
 package com.capg.entity;
 
-import java.util.List;
+
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import com.capg.dto.Paymentdto;
 @Entity
 public class Payment {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long paymentId;
 	private String type;
 	private String status;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="paymentId")
-	private List<Card> cards;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="cardId")
+	private Card card;
 	public static Payment DTOToentity(Paymentdto paymentDTO) {
 		Payment pay2 = new Payment();
 		pay2.setPaymentId(paymentDTO.getPaymentId());
 		pay2.setType(paymentDTO.getType());
 		pay2.setStatus(paymentDTO.getStatus());
+		pay2.setCard(paymentDTO.getCard());
 		return pay2;
 		
 	}
@@ -31,12 +35,12 @@ public class Payment {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Payment(long paymentId, String type, String status, List<Card> cards) {
+	public Payment(long paymentId, String type, String status, Card card) {
 		super();
 		this.paymentId = paymentId;
 		this.type = type;
 		this.status = status;
-		this.cards = cards;
+		this.card = card;
 	}
 	public long getPaymentId() {
 		return paymentId;
@@ -56,19 +60,19 @@ public class Payment {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public List<Card> getCards() {
-		return cards;
+	public Card getCard() {
+		return card;
 	}
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
+	public void setCard(Card card) {
+		this.card = card;
 	}
 	@Override
 	public String toString() {
-		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", cards=" + cards + "]";
+		return "Payment [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + card + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cards, paymentId, status, type);
+		return Objects.hash(card, paymentId, status, type);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -79,7 +83,7 @@ public class Payment {
 		if (getClass() != obj.getClass())
 			return false;
 		Payment other = (Payment) obj;
-		return Objects.equals(cards, other.cards) && paymentId == other.paymentId
+		return Objects.equals(card, other.card) && paymentId == other.paymentId
 				&& Objects.equals(status, other.status) && Objects.equals(type, other.type);
 	}
 	

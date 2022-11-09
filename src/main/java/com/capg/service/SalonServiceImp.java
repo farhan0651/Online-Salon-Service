@@ -7,7 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.capg.dto.SalonServicedto;
+import com.capg.entity.Orders;
 import com.capg.entity.SalonService;
+import com.capg.exception.OrderServiceNotFoundException;
 import com.capg.exception.SalonServiceNotFoundException;
 import com.capg.exception.ServiceAlreadyExistsException;
 import com.capg.repository.ISalonRepository;
@@ -39,14 +43,15 @@ public class SalonServiceImp implements ISalonService{
 		Optional<SalonService> salon = salonRepository.findById(serviceId);
 		salon.orElseThrow(() -> new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND"));
 		salonRepository.deleteById(serviceId);
+		
 	}
 	
 	@Override
     public SalonService updateService(Long serviceId, SalonService salonService) throws SalonServiceNotFoundException{
 		Optional<SalonService> salon = salonRepository.findById(serviceId);
-		SalonService s = salon.orElseThrow(() -> new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND"));
-		 s.setServiceName(salonService.getServiceName());
-       return s;
+		salonService = salon.orElseThrow(() -> new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND"));
+		salonService.setServiceName(salonService.getServiceName());
+       return salonService;
 	}
 	
     @Override
@@ -63,14 +68,7 @@ public class SalonServiceImp implements ISalonService{
 		Iterable<SalonService> order2 = salonRepository.findAll(); 
 		List<SalonService> s3 = new ArrayList<>();
 		order2.forEach(order -> {
-			SalonService s = new SalonService();
-			s.setDiscount(order.getDiscount());
-			s.setServiceName(order.getServiceName());
-			s.setServiceDuration(order.getServiceDuration());
-			s.setServiceId(order.getServiceId());
-			s.setServicePrice(order.getServicePrice());
-			
-			s3.add(s);
+			s3.add(order);
 		});
 		if (s3.isEmpty())
 			throw new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND");
@@ -81,17 +79,10 @@ public class SalonServiceImp implements ISalonService{
 		Iterable<SalonService> order2 = salonRepository.findByServiceName(serviceANme); 
 		List<SalonService> s3 = new ArrayList<>();
 		order2.forEach(order -> {
-			SalonService s = new SalonService();
-			s.setDiscount(order.getDiscount());
-			s.setServiceName(order.getServiceName());
-			s.setServiceDuration(order.getServiceDuration());
-			s.setServiceId(order.getServiceId());
-			s.setServicePrice(order.getServicePrice());
-			
-			s3.add(s);
+			s3.add(order);
 		});
 		if (s3.isEmpty())
-			throw new SalonServiceNotFoundException("Service.Order_NOT_FOUND");
+			throw new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND");
 		return s3;
 	}
 
@@ -100,14 +91,7 @@ public class SalonServiceImp implements ISalonService{
 		Iterable<SalonService> order2 = salonRepository.findByServicePrice(servicePrice); 
 		List<SalonService> s3 = new ArrayList<>();
 		order2.forEach(order -> {
-			SalonService s = new SalonService();
-			s.setDiscount(order.getDiscount());
-			s.setServiceName(order.getServiceName());
-			s.setServiceDuration(order.getServiceDuration());
-			s.setServiceId(order.getServiceId());
-			s.setServicePrice(order.getServicePrice());
-			
-			s3.add(s);
+			s3.add(order);
 		});
 		if (s3.isEmpty())
 			throw new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND");
@@ -118,14 +102,7 @@ public class SalonServiceImp implements ISalonService{
 		Iterable<SalonService> order2 = salonRepository.findByServiceDuration(serviceDuration);
 		List<SalonService> s3 = new ArrayList<>();
 		order2.forEach(order -> {
-			SalonService s = new SalonService();
-			s.setDiscount(order.getDiscount());
-			s.setServiceName(order.getServiceName());
-			s.setServiceDuration(order.getServiceDuration());
-			s.setServiceId(order.getServiceId());
-			s.setServicePrice(order.getServicePrice());
-			
-			s3.add(s);
+			s3.add(order);
 		});
 		if (s3.isEmpty())
 			throw new SalonServiceNotFoundException("Service.SalonService_NOT_FOUND");

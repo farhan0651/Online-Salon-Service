@@ -43,6 +43,7 @@ public class CustomerAPI {
 	
 	public static final Log LOGGER=LogFactory.getLog(CustomerAPI.class);
 
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/{userId}")
 	public ResponseEntity<Customerdto> getCustomer(@PathVariable @Min(value=1,message ="Please give userId >=1") Integer userId) throws CustomerServiceNotFoundException {
 		Customerdto customer = icustomerService.getCustomer(userId);
@@ -50,6 +51,7 @@ public class CustomerAPI {
 		return new ResponseEntity<>(customer, HttpStatus.OK); 
 	}
 	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping(value = "/getAllCustomer") 
 	public ResponseEntity<List<Customerdto>> getAllCustomers() throws CustomerServiceNotFoundException {
 		List<Customerdto> customerList = icustomerService.getAllCustomers();
@@ -57,6 +59,7 @@ public class CustomerAPI {
        return new ResponseEntity<>(customerList, HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins="http://localhost:3000")
 	@PostMapping(value = "/addCustomer")
 	public ResponseEntity<String> addCustomer(@RequestBody Customerdto customer) throws CustomerAlreadyExistsException {
 		Customer cust = icustomerService.addCustomer(customer);
@@ -65,6 +68,7 @@ public class CustomerAPI {
 		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 	}
 	
+	@CrossOrigin(origins="http://localhost:3000")
 	@PutMapping(value = "/updateCustomer/{userId}")
 	public ResponseEntity<String> updateCustomer(@PathVariable @Min(value=1,message ="Please give userId >=1") Integer userId, @RequestBody Customerdto customer)
 			throws CustomerServiceNotFoundException {
@@ -75,6 +79,7 @@ public class CustomerAPI {
 	}
 	
 
+	@CrossOrigin(origins="http://localhost:3000")
 	@DeleteMapping(value = "/deleteCustomer/{userId}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable @Min(value=1,message ="Please give userId >=1") Integer userId) throws CustomerServiceNotFoundException {
 		icustomerService.deleteCustomer(userId);

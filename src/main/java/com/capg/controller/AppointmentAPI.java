@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ private Environment environment;
 
 public static final Log LOGGER=LogFactory.getLog(AppointmentAPI.class);
 
-
+@CrossOrigin(origins="http://localhost:3000")
 @GetMapping(value = "/{id}")
 public ResponseEntity<Appointmentdto> getAppointment(@PathVariable @Min(value=1,message ="Please give AppointmentId >=1") Long id) throws AppointmentServiceNotFoundException{
 	Appointmentdto appointment = iappointmentService.getAppointment(id);
@@ -43,6 +44,7 @@ public ResponseEntity<Appointmentdto> getAppointment(@PathVariable @Min(value=1,
 	return new ResponseEntity<>(appointment, HttpStatus.OK);
 }
 
+@CrossOrigin(origins="http://localhost:3000")
 @GetMapping(value = "/getAll")
 public ResponseEntity<List<Appointmentdto>> getAllAppointments() throws AppointmentServiceNotFoundException {
 	List<Appointmentdto> appointmentList = iappointmentService.getAllAppointments();
@@ -50,6 +52,7 @@ public ResponseEntity<List<Appointmentdto>> getAllAppointments() throws Appointm
    return new ResponseEntity<>(appointmentList, HttpStatus.OK);
 }
 
+@CrossOrigin(origins="http://localhost:3000")
 @GetMapping(value = "/getOpenAppointments")
 public ResponseEntity<List<Appointmentdto>> getOpenAppointments()throws AppointmentServiceNotFoundException {
 	List<Appointmentdto> appointmentList = iappointmentService.getOpenAppointments();
@@ -57,6 +60,7 @@ public ResponseEntity<List<Appointmentdto>> getOpenAppointments()throws Appointm
 	return new ResponseEntity<>(appointmentList, HttpStatus.OK);
 }
 
+@CrossOrigin(origins="http://localhost:3000")
 @PostMapping(value = "/addAppointment")
 public ResponseEntity<String> addCustomer(@RequestBody Appointmentdto appoitntmetDTO) throws AppointmentAlreadyExistsException {
 	Appointment app = iappointmentService.addAppointment(appoitntmetDTO);
@@ -65,6 +69,7 @@ public ResponseEntity<String> addCustomer(@RequestBody Appointmentdto appoitntme
 	return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 }
 
+@CrossOrigin(origins="http://localhost:3000")
 @PutMapping(value = "/updateAppointment/{id}")
 public ResponseEntity<String> updateCustomer(@PathVariable @Min(value=1,message ="Please give AppointmentId >=1") Long id , @RequestBody Appointmentdto appointment)
 		throws AppointmentServiceNotFoundException {
@@ -74,6 +79,7 @@ public ResponseEntity<String> updateCustomer(@PathVariable @Min(value=1,message 
 	return new ResponseEntity<>(successMessage, HttpStatus.OK);
 }
 
+@CrossOrigin(origins="http://localhost:3000")
 @DeleteMapping(value = "/deleteAppointment/{id}")
 public ResponseEntity<String> removeAppointment(@PathVariable @Min(value=1,message ="Please give AppointmentId >=1") Long id)throws AppointmentServiceNotFoundException {
 	iappointmentService.removeAppointment(id);

@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capg.dto.Paymentdto;
 import com.capg.entity.Payment;
 import com.capg.exception.PaymentAlreadyExistsException;
 import com.capg.exception.PaymentServiceNotFoundException;
@@ -25,59 +26,58 @@ public class IPaymentServiceImp implements IPaymentService {
 	
 	//Get Payment Info
 		@Override
-	   public Payment getPaymentDetails(long paymentId) throws PaymentServiceNotFoundException{ 
+	   public Paymentdto getPaymentDetails(long paymentId) throws PaymentServiceNotFoundException{ 
 			Optional<Payment> optional = iPaymentRepository.findById(paymentId);
-			Payment payment  = optional.orElseThrow(() -> new PaymentServiceNotFoundException("Service.CUSTOMER_NOT_FOUND"));
-			return payment;
+			Payment payment  = optional.orElseThrow(() -> new PaymentServiceNotFoundException("Service.Payment_NOT_FOUND"));
+			Paymentdto paymentdto = Paymentdto.entityToDTO(payment);
+			return paymentdto;
 		}
-	
+
 		//Add Payment Details
 		@Override
-		public Payment addPayment(Payment payment) throws PaymentAlreadyExistsException{
-			Optional<Payment> optional = iPaymentRepository.findById(payment.getPaymentId());
-			if(optional.isPresent())
+		public Paymentdto addPayment(Paymentdto payment) throws PaymentAlreadyExistsException{
+			Optional<Payment> payments = iPaymentRepository.findById(payment.getPaymentId());
+			if(payments.isPresent())
 			{
 				throw new PaymentAlreadyExistsException("Service.PAYMENT_ALREADY_EXISTS");
 			}
-			 iPaymentRepository.save(payment);
+			Payment payment1 = Payment.DTOToentity(payment);
+			iPaymentRepository.save(payment1);
 			return payment;
-			
 			
 		}
 		
 		//Update Payment Information
 		@Override
-		public Payment updatePayment(long paymentId, Payment payment) throws PaymentServiceNotFoundException{
+		public Paymentdto updatePayment(long paymentId, Paymentdto payment) throws PaymentServiceNotFoundException{
 			Optional<Payment> payment1 = iPaymentRepository.findById(paymentId);
-			Payment p = payment1.orElseThrow(() -> new PaymentServiceNotFoundException("Service.CUSTOMER_NOT_FOUND"));
+			Payment p = payment1.orElseThrow(() -> new PaymentServiceNotFoundException("Service.Payment_NOT_FOUND"));
 			p.setStatus(payment.getStatus());
-			return p;
+			p.setType(payment.getType());
+			return payment;
 		}
-		
+
+
 		//Delete Payment Information
 		@Override
-		public Payment deletePayment(long paymentId) throws PaymentServiceNotFoundException{
+		public void deletePayment(long paymentId) throws PaymentServiceNotFoundException{
 			Optional<Payment> payment1 = iPaymentRepository.findById(paymentId);
-			Payment p = payment1.orElseThrow(() -> new PaymentServiceNotFoundException("Service.CUSTOMER_NOT_FOUND"));
+			Payment p = payment1.orElseThrow(() -> new PaymentServiceNotFoundException("Service.Payment_NOT_FOUND"));
 			iPaymentRepository.deleteById(paymentId);
-			return p;
 		}
+		
 		
 		//GetAll payment Details
-		public List<Payment> getAllPaymentDetails() throws PaymentServiceNotFoundException{
-			Iterable<Payment> payments = iPaymentRepository.findAll(); 
-			List<Payment> payments2 = new ArrayList<>();
-			payments.forEach(payment -> {
-				Payment paym = new Payment();
-				paym.setPaymentId(payment.getPaymentId());
-				paym.setType(payment.getType());
-				paym.setStatus(payment.getStatus());
-				payments2.add(paym);
+		public List<Paymentdto> getAllPaymentDetails() throws PaymentServiceNotFoundException{
+			
+			List<Payment> payment = iPaymentRepository.findAll();
+			if(payment.isEmpty())
+				throw new PaymentServiceNotFoundException("Service.Payment_NOT_FOUND");
+			List<Paymentdto> payments = new ArrayList<>();
+			payment.forEach(p -> {
+				payments.add(Paymentdto.entityToDTO(p));
 			});
-			if (payments2.isEmpty())
-				throw new PaymentServiceNotFoundException("Service.CUSTOMERS_NOT_FOUND");
-			return payments2;
+			return payments;
 		}
 		
-
 }

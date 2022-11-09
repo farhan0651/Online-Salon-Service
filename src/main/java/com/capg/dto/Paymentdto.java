@@ -1,6 +1,6 @@
 package com.capg.dto;
 
-import java.util.List;
+
 import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
@@ -13,18 +13,19 @@ public class Paymentdto {
 	private long paymentId;
 	private String type;
 	private String status;
-	private List<Card> cards;
+	private Card card;
 	public static Paymentdto entityToDTO(Payment payment2) {
 		Paymentdto pay3 = new Paymentdto();
 		pay3.setPaymentId(payment2.getPaymentId());
 		pay3.setType(payment2.getType());
 		pay3.setStatus(payment2.getStatus());
+		pay3.setCard(payment2.getCard());
 		return pay3;
 		
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cards, paymentId, status, type);
+		return Objects.hash(card, paymentId, status, type);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -35,7 +36,7 @@ public class Paymentdto {
 		if (getClass() != obj.getClass())
 			return false;
 		Paymentdto other = (Paymentdto) obj;
-		return Objects.equals(cards, other.cards) && paymentId == other.paymentId
+		return Objects.equals(card, other.card) && paymentId == other.paymentId
 				&& Objects.equals(status, other.status) && Objects.equals(type, other.type);
 	}
 	public long getPaymentId() {
@@ -47,8 +48,8 @@ public class Paymentdto {
 	public String getStatus() {
 		return status;
 	}
-	public List<Card> getCards() {
-		return cards;
+	public Card getCard() {
+		return card;
 	}
 	public void setPaymentId(long paymentId) {
 		this.paymentId = paymentId;
@@ -59,14 +60,15 @@ public class Paymentdto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void setCards(List<Card> cards) {
-		this.cards = cards;
+	public void setCard(Card card) {
+		this.card = card;
 	}
 	@Override
 	public String toString() {
-		return "Paymentdto [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", cards=" + cards
+		return "Paymentdto [paymentId=" + paymentId + ", type=" + type + ", status=" + status + ", card=" + card
 				+ "]";
 	}
+	
 	
 	
 }
