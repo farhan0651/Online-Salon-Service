@@ -79,6 +79,9 @@ public class CustomerServiceImp implements ICustomerService{
 			cust.setUserId(customer.getUserId());
 			cust.setName(customer.getName());
 			cust.setContactNo(customer.getContactNo());
+			cust.setEmail(customer.getEmail());
+			cust.setDob(customer.getDob());
+			cust.setUser1(customer.getUser1());
 			customers2.add(cust);
 		});
 		if (customers2.isEmpty())
