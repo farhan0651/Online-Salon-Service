@@ -42,8 +42,6 @@ public class OrderServiceImp implements IOrderService{
 		
 		Optional<Orders> orders = orderRepository.findById(orderId);
 		Orders order1 = orders.orElseThrow(() -> new OrderServiceNotFoundException("Service.Order_NOT_FOUND"));
-		order1.setCustomer(null);
-		order1.setPayment(null);
 		order1.setAppointment(null);
 		orderRepository.deleteById(orderId);	
 	

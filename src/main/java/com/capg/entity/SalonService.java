@@ -23,6 +23,7 @@ public class SalonService {
 		salon2.setServicePrice(salon1.getServicePrice());
 		salon2.setServiceDuration(salon1.getServiceDuration());
 		salon2.setDiscount(salon1.getDiscount());
+		salon2.setUrl(salon1.getUrl());
 		return salon2;
 		
 	}
@@ -59,6 +60,12 @@ public class SalonService {
 	}
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
+	}
+	public String getUrl() {
+		return this.url;
+	}
+	public void setUrl(String url){
+		this.url=url;
 	}
 	public void setServicePrice(String servicePrice) {
 		this.servicePrice = servicePrice;

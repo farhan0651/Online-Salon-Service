@@ -31,6 +31,7 @@ public class CustomerServiceImp implements ICustomerService{
 		customer2.setName(customer.getName());
 		customer2.setEmail(customer.getEmail());
 		customer2.setContactNo(customer.getContactNo());
+		customer2.setDob(customer.getDob());
 		return customer2;
 	}
 	

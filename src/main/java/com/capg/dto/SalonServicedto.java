@@ -15,6 +15,7 @@ public class SalonServicedto {
 	private String servicePrice;
 	private String serviceDuration;
 	private int discount;
+	private String url;
 	public static SalonServicedto entityToDTO(SalonService salon1) {
 		SalonServicedto salon2 = new SalonServicedto();
 		salon2.setServiceId(salon1.getServiceId());
@@ -30,19 +31,26 @@ public class SalonServicedto {
 		// TODO Auto-generated constructor stub
 	}
 	public SalonServicedto(long serviceId, String serviceName, String servicePrice, String serviceDuration,
-			int discount) {
+			int discount,String url) {
 		super();
 		this.serviceId = serviceId;
 		this.serviceName = serviceName;
 		this.servicePrice = servicePrice;
 		this.serviceDuration = serviceDuration;
 		this.discount = discount;
+		this.url=url;
 	}
 	public long getServiceId() {
 		return serviceId;
 	}
 	public String getServiceName() {
 		return serviceName;
+	}
+	public void setUrl(String url) {
+		this.url=url;
+	}
+	public String getUrl() {
+		return this.url;
 	}
 	public String getServicePrice() {
 		return servicePrice;

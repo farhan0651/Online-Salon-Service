@@ -17,9 +17,9 @@ public class Ordersdto {
 	private long orderId;
 	private double amount;
 	private LocalDate billingDate;
-	private Payment payment;
+	
 	private String paymentMethod;
-	private Customer customer;
+	
 	private Appointment appointment;
 	
 	public static Ordersdto entityToDTO(Orders order1) {
@@ -28,8 +28,7 @@ public class Ordersdto {
 		order2.setAmount(order1.getAmount());
 		order2.setBillingDate(order1.getBillingDate());
 		order2.setPaymentMethod(order1.getPaymentMethod());
-		order2.setCustomer(order1.getCustomer());
-		order2.setPayment(order1.getPayment());
+		
 		order2.setAppointment(order1.getAppointment());
 		
 		return order2;
@@ -60,28 +59,12 @@ public class Ordersdto {
 		this.billingDate = billingDate;
 	}
 
-	public Payment getPayment() {
-		return payment;
-	}
-
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
-
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 	public Appointment getAppointment() {
@@ -94,14 +77,13 @@ public class Ordersdto {
 
 	@Override
 	public String toString() {
-		return "Ordersdto [orderId=" + orderId + ", amount=" + amount + ", billingDate=" + billingDate + ", payment="
-				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", appointment="
-				+ appointment + "]";
+		return "Ordersdto [orderId=" + orderId + ", amount=" + amount + ", billingDate=" + billingDate
+				+ ", paymentMethod=" + paymentMethod + ", appointment=" + appointment + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, appointment, billingDate, customer, orderId, payment, paymentMethod);
+		return Objects.hash(amount, appointment, billingDate, orderId, paymentMethod);
 	}
 
 	@Override
@@ -115,8 +97,7 @@ public class Ordersdto {
 		Ordersdto other = (Ordersdto) obj;
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
 				&& Objects.equals(appointment, other.appointment) && Objects.equals(billingDate, other.billingDate)
-				&& Objects.equals(customer, other.customer) && orderId == other.orderId
-				&& Objects.equals(payment, other.payment) && Objects.equals(paymentMethod, other.paymentMethod);
+				&& orderId == other.orderId && Objects.equals(paymentMethod, other.paymentMethod);
 	}
 
 	

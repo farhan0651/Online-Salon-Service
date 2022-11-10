@@ -54,7 +54,7 @@ public class UserAPI {
 	 * @throws UserException the user exception
 	 */
 	@CrossOrigin(origins="http://localhost:3000")
-	@PostMapping("/signin")
+	@GetMapping("/signin")
 	public ResponseEntity<String> signIn(@RequestBody User1dto userDTO) throws UserException{
 		IuserService.signIn(userDTO);
 		return new ResponseEntity<String>("Signin Successful",HttpStatus.OK);
