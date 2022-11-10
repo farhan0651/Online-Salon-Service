@@ -25,6 +25,12 @@ public class Appointmentdto {
 	public long getAppointmentId() {
 		return appointmentId;
 	}
+	public int getCustomerId() {
+		return this.customer.getUserId();
+	}
+	public void setCustomerId(int userId) {
+		this.customer.setUserId(userId);
+	}
 	public String getLocation() {
 		return location;
 	}
@@ -65,7 +71,7 @@ public class Appointmentdto {
 		this.salonService = salonService;
 	}
 	public void setCustomer(Customer customer) {
-		this.customer = customer;
+		this.customer =customer;
 	}
 	public void setPayment(Payment payment) {
 		this.payment = payment;

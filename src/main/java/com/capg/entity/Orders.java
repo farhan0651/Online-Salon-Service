@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,7 @@ import com.capg.dto.Ordersdto;
 @Entity
 public class Orders {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long orderId;
 	private double amount;
 	private LocalDate billingDate;
@@ -23,9 +26,10 @@ public class Orders {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name= "customerId")
 	private Customer customer;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name= "serviceId")
-	private SalonService salonservice;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "appointmentId")
+	private Appointment appointment;
+	
 	
 	public static Orders DTOToentity(Ordersdto order3) {
 		
@@ -36,7 +40,7 @@ public class Orders {
 		order4.setPaymentMethod(order3.getPaymentMethod());
 		order4.setPayment(order3.getPayment());
 		order4.setCustomer(order3.getCustomer());
-		order4.setSalonservice(order3.getSalonservice());
+		order4.setAppointment(order3.getAppointment());
 		
 		return order4;
 	}
@@ -45,7 +49,7 @@ public class Orders {
 		// TODO Auto-generated constructor stub
 	}
 	public Orders(long orderId, double amount, LocalDate billingDate, Payment payment, String paymentMethod,
-			Customer customer, SalonService salonservice) {
+			Customer customer, Appointment appointment) {
 		super();
 		this.orderId = orderId;
 		this.amount = amount;
@@ -53,7 +57,7 @@ public class Orders {
 		this.payment = payment;
 		this.paymentMethod = paymentMethod;
 		this.customer = customer;
-		this.salonservice = salonservice;
+		this.appointment = appointment;
 	}
 	public long getOrderId() {
 		return orderId;
@@ -91,21 +95,21 @@ public class Orders {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public SalonService getSalonservice() {
-		return salonservice;
+	public Appointment getAppointment() {
+		return appointment;
 	}
-	public void setSalonservice(SalonService salonservice) {
-		this.salonservice = salonservice;
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
 	}
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", amount=" + amount + ", billingDate=" + billingDate + ", payment="
-				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", salonservice="
-				+ salonservice + "]";
+				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", appointment="
+				+ appointment + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, billingDate, customer, orderId, payment, paymentMethod, salonservice);
+		return Objects.hash(amount, appointment, billingDate, customer, orderId, payment, paymentMethod);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -117,12 +121,10 @@ public class Orders {
 			return false;
 		Orders other = (Orders) obj;
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
-				&& Objects.equals(billingDate, other.billingDate) && Objects.equals(customer, other.customer)
-				&& orderId == other.orderId && Objects.equals(payment, other.payment)
-				&& Objects.equals(paymentMethod, other.paymentMethod)
-				&& Objects.equals(salonservice, other.salonservice);
+				&& Objects.equals(appointment, other.appointment) && Objects.equals(billingDate, other.billingDate)
+				&& Objects.equals(customer, other.customer) && orderId == other.orderId
+				&& Objects.equals(payment, other.payment) && Objects.equals(paymentMethod, other.paymentMethod);
 	}
-	
 	
 
 }

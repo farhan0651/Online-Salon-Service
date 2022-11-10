@@ -59,6 +59,12 @@ public class Appointment {
 	public String getLocation() {
 		return location;
 	}
+	public int getCustomerId() {
+		return customer.getUserId();
+	}
+	public void setCustomerId(int userId) {
+		this.customer.setUserId(userId);
+	}
 	public void setLocation(String location) {
 		this.location = location;
 	}

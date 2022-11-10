@@ -20,7 +20,7 @@ public class Ordersdto {
 	private Payment payment;
 	private String paymentMethod;
 	private Customer customer;
-	private SalonService salonservice;
+	private Appointment appointment;
 	
 	public static Ordersdto entityToDTO(Orders order1) {
 		Ordersdto order2 = new Ordersdto();
@@ -30,7 +30,7 @@ public class Ordersdto {
 		order2.setPaymentMethod(order1.getPaymentMethod());
 		order2.setCustomer(order1.getCustomer());
 		order2.setPayment(order1.getPayment());
-        order2.setSalonservice(order1.getSalonservice());
+		order2.setAppointment(order1.getAppointment());
 		
 		return order2;
 		
@@ -84,24 +84,24 @@ public class Ordersdto {
 		this.customer = customer;
 	}
 
-	public SalonService getSalonservice() {
-		return salonservice;
+	public Appointment getAppointment() {
+		return appointment;
 	}
 
-	public void setSalonservice(SalonService salonservice) {
-		this.salonservice = salonservice;
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
 	}
 
 	@Override
 	public String toString() {
 		return "Ordersdto [orderId=" + orderId + ", amount=" + amount + ", billingDate=" + billingDate + ", payment="
-				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", salonservice="
-				+ salonservice + "]";
+				+ payment + ", paymentMethod=" + paymentMethod + ", customer=" + customer + ", appointment="
+				+ appointment + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, billingDate, customer, orderId, payment, paymentMethod, salonservice);
+		return Objects.hash(amount, appointment, billingDate, customer, orderId, payment, paymentMethod);
 	}
 
 	@Override
@@ -114,11 +114,11 @@ public class Ordersdto {
 			return false;
 		Ordersdto other = (Ordersdto) obj;
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
-				&& Objects.equals(billingDate, other.billingDate) && Objects.equals(customer, other.customer)
-				&& orderId == other.orderId && Objects.equals(payment, other.payment)
-				&& Objects.equals(paymentMethod, other.paymentMethod)
-				&& Objects.equals(salonservice, other.salonservice);
+				&& Objects.equals(appointment, other.appointment) && Objects.equals(billingDate, other.billingDate)
+				&& Objects.equals(customer, other.customer) && orderId == other.orderId
+				&& Objects.equals(payment, other.payment) && Objects.equals(paymentMethod, other.paymentMethod);
 	}
 
+	
 	
 }
